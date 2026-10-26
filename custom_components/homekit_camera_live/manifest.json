@@ -1,0 +1,15 @@
+{
+  "domain": "homekit_camera_live",
+  "name": "HomeKit Camera Live",
+  "after_dependencies": ["go2rtc", "homekit_controller"],
+  "codeowners": ["@radiantnode"],
+  "config_flow": true,
+  "dependencies": ["camera"],
+  "documentation": "https://github.com/radiantnode/homekit-camera-live",
+  "integration_type": "service",
+  "iot_class": "local_push",
+  "issue_tracker": "https://github.com/radiantnode/homekit-camera-live/issues",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "0.1.0"
+}
