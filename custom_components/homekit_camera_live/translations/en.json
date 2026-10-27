@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "HomeKit Camera Live",
-        "description": "Adds live video to the cameras you've paired with HomeKit Controller, using the pairing Home Assistant already has. Nothing is paired again and no entities are added: the cameras you have start offering live view."
+        "description": "Adds live video to the cameras you've paired with HomeKit Controller, using the pairing Home Assistant already has. Nothing is paired again and no entities are added: your existing cameras gain live view."
       }
     },
     "abort": {
