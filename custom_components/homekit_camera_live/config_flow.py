@@ -1,11 +1,15 @@
 """Set up from the UI: nothing to fill in, and one option."""
-from __future__ import annotations
 
 from typing import Any
 
 import voluptuous as vol
 
-from homeassistant.config_entries import ConfigEntry, ConfigFlow, ConfigFlowResult, OptionsFlow
+from homeassistant.config_entries import (
+    ConfigEntry,
+    ConfigFlow,
+    ConfigFlowResult,
+    OptionsFlow,
+)
 from homeassistant.core import callback
 
 from .const import CONF_SRTP_PORT, DEFAULT_SRTP_PORT, DOMAIN
@@ -13,9 +17,14 @@ from .server import async_find_binary
 
 
 class HomeKitCameraLiveConfigFlow(ConfigFlow, domain=DOMAIN):
+    """Add the integration: one confirmation, nothing to fill in."""
+
     VERSION = 1
 
-    async def async_step_user(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
+    async def async_step_user(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        """Confirm, once go2rtc is known to be there."""
         if await async_find_binary(self.hass) is None:
             return self.async_abort(reason="no_go2rtc")
         if user_input is not None:
@@ -25,17 +34,27 @@ class HomeKitCameraLiveConfigFlow(ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(config_entry: ConfigEntry) -> OptionsFlow:
+        """Return the options flow."""
         return HomeKitCameraLiveOptionsFlow()
 
 
 class HomeKitCameraLiveOptionsFlow(OptionsFlow):
-    async def async_step_init(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
+    """Change the video port."""
+
+    async def async_step_init(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        """Show the video port, and save it."""
         if user_input is not None:
             return self.async_create_entry(data=user_input)
         port = self.config_entry.options.get(CONF_SRTP_PORT, DEFAULT_SRTP_PORT)
         return self.async_show_form(
             step_id="init",
             data_schema=vol.Schema(
-                {vol.Required(CONF_SRTP_PORT, default=port): vol.All(vol.Coerce(int), vol.Range(min=1024, max=65535))}
+                {
+                    vol.Required(CONF_SRTP_PORT, default=port): vol.All(
+                        vol.Coerce(int), vol.Range(min=1024, max=65535)
+                    )
+                }
             ),
         )

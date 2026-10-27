@@ -23,5 +23,16 @@
         }
       }
     }
+  },
+  "exceptions": {
+    "no_go2rtc": {
+      "message": "No go2rtc binary was found. Home Assistant OS and the official container include it; see the README for other installs."
+    },
+    "no_homekit_controller": {
+      "message": "HomeKit Controller isn't available on this install."
+    },
+    "go2rtc_not_started": {
+      "message": "go2rtc didn't start: {error}"
+    }
   }
 }
